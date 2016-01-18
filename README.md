@@ -9,8 +9,6 @@ This is a header only C++ version of [inih](https://github.com/benhoyt/inih).
 All you need to do is to include `INIReader.h`. Consider the following example (`INIReaderTest.cpp`):
 
 ```{c++}
-// Example that shows simple usage of the INIReader class
-
 #include <iostream>
 #include "INIReader.h"
 
@@ -34,7 +32,7 @@ int main()
 
 To compile and run:
 
-```
+```{shell}
 g++ INIReaderTest.cpp -o INIReaderTest.out
 ./INIReaderTest.out
 # Config loaded from 'test.ini': version=6, name=Bob Smith, email=bob@smith.com, pi=3.14159, active=1
