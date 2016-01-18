@@ -1,4 +1,4 @@
-#inih
+#inih [![Build Status](https://travis-ci.org/jtilly/inih.svg?branch=master)](https://travis-ci.org/jtilly/inih)
 
 This is a header only C++ version of [inih](https://github.com/benhoyt/inih).
 
