@@ -12,8 +12,8 @@ All you need to do is to include `INIReader.h`. Consider the following example (
 #include <iostream>
 #include "INIReader.h"
 
-int main()
-{
+int main() {
+
     INIReader reader("test.ini");
 
     if (reader.ParseError() < 0) {
@@ -27,6 +27,7 @@ int main()
               << reader.GetReal("user", "pi", -1) << ", active="
               << reader.GetBoolean("user", "active", true) << "\n";
     return 0;
+    
 }
 ```
 
