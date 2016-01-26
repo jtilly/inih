@@ -212,6 +212,14 @@ inline int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler
         }
 #if INI_ALLOW_MULTILINE
         else if (*prev_name && *start && start > line) {
+
+#if INI_ALLOW_INLINE_COMMENTS
+        end = find_chars_or_comment(start, NULL);
+        if (*end)
+            *end = '\0';
+        rstrip(start);
+#endif
+
             /* Non-blank line with leading whitespace, treat as continuation
                of previous name's value (as per Python configparser). */
             if (!handler(user, section, prev_name, start) && !error)
