@@ -304,6 +304,7 @@ inline int ini_parse(const char* filename, ini_handler handler, void* user)
 #define __INIREADER_H__
 
 #include <map>
+#include <set>
 #include <string>
 
 // Read an INI file into easy-to-access name/value pairs. (Note that I've gone
@@ -318,6 +319,9 @@ public:
     // Return the result of ini_parse(), i.e., 0 on success, line number of
     // first error on parse error, or -1 on file open error.
     int ParseError();
+
+    // Return the list of sections found in ini file
+    std::set<std::string> Sections();
 
     // Get a string value from INI file, returning default_value if not found.
     std::string Get(std::string section, std::string name,
@@ -340,6 +344,7 @@ public:
 private:
     int _error;
     std::map<std::string, std::string> _values;
+    std::set<std::string> _sections;
     static std::string MakeKey(std::string section, std::string name);
     static int ValueHandler(void* user, const char* section, const char* name,
                             const char* value);
@@ -365,6 +370,11 @@ inline INIReader::INIReader(string filename)
 inline int INIReader::ParseError()
 {
     return _error;
+}
+
+inline std::set<string> INIReader::Sections()
+{
+    return _sections;
 }
 
 inline string INIReader::Get(string section, string name, string default_value)
@@ -421,6 +431,7 @@ inline int INIReader::ValueHandler(void* user, const char* section, const char* 
     if (reader->_values[key].size() > 0)
         reader->_values[key] += "\n";
     reader->_values[key] += value;
+    reader->_sections.insert(section);
     return 1;
 }
 
