@@ -14,9 +14,8 @@ int main()
     }
     std::cout << "Config loaded from 'test.ini': found sections=" << [&reader]() {
                     std::stringstream ss;
-                    auto sections = reader.Sections();
-                    for (auto it = sections.cbegin(); it != sections.cend(); ++it)
-                        ss << *it << ",";
+                    for (auto &section : reader.Sections())
+                        ss << section << ",";
                     return ss.str();
               }() << " version="
               << reader.GetInteger("protocol", "version", -1) << ", name="
