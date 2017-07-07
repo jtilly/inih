@@ -1,4 +1,4 @@
-# inih 
+# inih
 [![Build Status](https://travis-ci.org/jtilly/inih.svg?branch=master)](https://travis-ci.org/jtilly/inih)
 
 This is a header only C++ version of [inih](https://github.com/benhoyt/inih).
@@ -9,7 +9,7 @@ This is a header only C++ version of [inih](https://github.com/benhoyt/inih).
 
 All you need to do is to include `INIReader.h`. Consider the following example (`INIReaderTest.cpp`):
 
-```{c++}
+```cpp
 #include <iostream>
 #include "INIReader.h"
 
@@ -28,13 +28,13 @@ int main() {
               << reader.GetReal("user", "pi", -1) << ", active="
               << reader.GetBoolean("user", "active", true) << "\n";
     return 0;
-    
+
 }
 ```
 
 To compile and run:
 
-```{shell}
+```sh
 g++ INIReaderTest.cpp -o INIReaderTest.out
 ./INIReaderTest.out
 # Config loaded from 'test.ini': version=6, name=Bob Smith, email=bob@smith.com, pi=3.14159, active=1
