@@ -312,6 +312,9 @@ inline int ini_parse(const char* filename, ini_handler handler, void* user)
 class INIReader
 {
 public:
+    // Empty Constructor
+    INIReader() {};
+  
     // Construct INIReader and parse given filename. See ini.h for more info
     // about the parsing.
     INIReader(std::string filename);
