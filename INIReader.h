@@ -324,25 +324,25 @@ public:
     int ParseError() const;
 
     // Return the list of sections found in ini file
-    std::set<std::string> Sections();
+    const std::set<std::string>& Sections() const;
 
     // Get a string value from INI file, returning default_value if not found.
     std::string Get(std::string section, std::string name,
-                    std::string default_value);
+                    std::string default_value) const;
 
     // Get an integer (long) value from INI file, returning default_value if
     // not found or not a valid integer (decimal "1234", "-1234", or hex "0x4d2").
-    long GetInteger(std::string section, std::string name, long default_value);
+    long GetInteger(std::string section, std::string name, long default_value) const;
 
     // Get a real (floating point double) value from INI file, returning
     // default_value if not found or not a valid floating point value
     // according to strtod().
-    double GetReal(std::string section, std::string name, double default_value);
+    double GetReal(std::string section, std::string name, double default_value) const;
 
     // Get a boolean value from INI file, returning default_value if not found or if
     // not a valid true/false value. Valid true values are "true", "yes", "on", "1",
     // and valid false values are "false", "no", "off", "0" (not case sensitive).
-    bool GetBoolean(std::string section, std::string name, bool default_value);
+    bool GetBoolean(std::string section, std::string name, bool default_value) const;
 
 private:
     int _error;
@@ -375,18 +375,18 @@ inline int INIReader::ParseError() const
     return _error;
 }
 
-inline std::set<string> INIReader::Sections()
+inline const std::set<string>& INIReader::Sections() const
 {
     return _sections;
 }
 
-inline string INIReader::Get(string section, string name, string default_value)
+inline string INIReader::Get(string section, string name, string default_value) const
 {
     string key = MakeKey(section, name);
-    return _values.count(key) ? _values[key] : default_value;
+    return _values.count(key) ? _values.at(key) : default_value;
 }
 
-inline long INIReader::GetInteger(string section, string name, long default_value)
+inline long INIReader::GetInteger(string section, string name, long default_value) const
 {
     string valstr = Get(section, name, "");
     const char* value = valstr.c_str();
@@ -396,7 +396,7 @@ inline long INIReader::GetInteger(string section, string name, long default_valu
     return end > value ? n : default_value;
 }
 
-inline double INIReader::GetReal(string section, string name, double default_value)
+inline double INIReader::GetReal(string section, string name, double default_value) const
 {
     string valstr = Get(section, name, "");
     const char* value = valstr.c_str();
@@ -405,7 +405,7 @@ inline double INIReader::GetReal(string section, string name, double default_val
     return end > value ? n : default_value;
 }
 
-inline bool INIReader::GetBoolean(string section, string name, bool default_value)
+inline bool INIReader::GetBoolean(string section, string name, bool default_value) const
 {
     string valstr = Get(section, name, "");
     // Convert to lower case to make string comparisons case-insensitive
