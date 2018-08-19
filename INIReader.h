@@ -314,7 +314,7 @@ class INIReader
 public:
     // Empty Constructor
     INIReader() {};
-  
+
     // Construct INIReader and parse given filename. See ini.h for more info
     // about the parsing.
     INIReader(std::string filename);
@@ -344,7 +344,7 @@ public:
     // and valid false values are "false", "no", "off", "0" (not case sensitive).
     bool GetBoolean(std::string section, std::string name, bool default_value) const;
 
-private:
+protected:
     int _error;
     std::map<std::string, std::string> _values;
     std::set<std::string> _sections;
