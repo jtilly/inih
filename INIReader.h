@@ -363,9 +363,7 @@ protected:
 #include <cctype>
 #include <cstdlib>
 
-using std::string;
-
-inline INIReader::INIReader(string filename)
+inline INIReader::INIReader(std::string filename)
 {
     _error = ini_parse(filename.c_str(), ValueHandler, this);
 }
@@ -375,20 +373,20 @@ inline int INIReader::ParseError() const
     return _error;
 }
 
-inline const std::set<string>& INIReader::Sections() const
+inline const std::set<std::string>& INIReader::Sections() const
 {
     return _sections;
 }
 
-inline string INIReader::Get(string section, string name, string default_value) const
+inline std::string INIReader::Get(std::string section, std::string name, std::string default_value) const
 {
-    string key = MakeKey(section, name);
+    std::string key = MakeKey(section, name);
     return _values.count(key) ? _values.at(key) : default_value;
 }
 
-inline long INIReader::GetInteger(string section, string name, long default_value) const
+inline long INIReader::GetInteger(std::string section, std::string name, long default_value) const
 {
-    string valstr = Get(section, name, "");
+    std::string valstr = Get(section, name, "");
     const char* value = valstr.c_str();
     char* end;
     // This parses "1234" (decimal) and also "0x4D2" (hex)
@@ -396,18 +394,18 @@ inline long INIReader::GetInteger(string section, string name, long default_valu
     return end > value ? n : default_value;
 }
 
-inline double INIReader::GetReal(string section, string name, double default_value) const
+inline double INIReader::GetReal(std::string section, std::string name, double default_value) const
 {
-    string valstr = Get(section, name, "");
+    std::string valstr = Get(section, name, "");
     const char* value = valstr.c_str();
     char* end;
     double n = strtod(value, &end);
     return end > value ? n : default_value;
 }
 
-inline bool INIReader::GetBoolean(string section, string name, bool default_value) const
+inline bool INIReader::GetBoolean(std::string section, std::string name, bool default_value) const
 {
-    string valstr = Get(section, name, "");
+    std::string valstr = Get(section, name, "");
     // Convert to lower case to make string comparisons case-insensitive
     std::transform(valstr.begin(), valstr.end(), valstr.begin(), ::tolower);
     if (valstr == "true" || valstr == "yes" || valstr == "on" || valstr == "1")
@@ -418,9 +416,9 @@ inline bool INIReader::GetBoolean(string section, string name, bool default_valu
         return default_value;
 }
 
-inline string INIReader::MakeKey(string section, string name)
+inline std::string INIReader::MakeKey(std::string section, std::string name)
 {
-    string key = section + "=" + name;
+    std::string key = section + "=" + name;
     // Convert to lower case to make section/name lookups case-insensitive
     std::transform(key.begin(), key.end(), key.begin(), ::tolower);
     return key;
@@ -430,7 +428,7 @@ inline int INIReader::ValueHandler(void* user, const char* section, const char* 
                             const char* value)
 {
     INIReader* reader = (INIReader*)user;
-    string key = MakeKey(section, name);
+    std::string key = MakeKey(section, name);
     if (reader->_values[key].size() > 0)
         reader->_values[key] += "\n";
     reader->_values[key] += value;
