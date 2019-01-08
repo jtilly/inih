@@ -319,6 +319,10 @@ public:
     // about the parsing.
     INIReader(std::string filename);
 
+    // Construct INIReader and parse given file. See ini.h for more info
+    // about the parsing.
+    INIReader(FILE *file);
+
     // Return the result of ini_parse(), i.e., 0 on success, line number of
     // first error on parse error, or -1 on file open error.
     int ParseError() const;
@@ -366,6 +370,11 @@ protected:
 inline INIReader::INIReader(std::string filename)
 {
     _error = ini_parse(filename.c_str(), ValueHandler, this);
+}
+
+inline INIReader::INIReader(FILE *file)
+{
+    _error = ini_parse_file(file, ValueHandler, this);
 }
 
 inline int INIReader::ParseError() const
