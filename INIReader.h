@@ -343,6 +343,11 @@ public:
     // according to strtod().
     double GetReal(std::string section, std::string name, double default_value) const;
 
+	  // Get a single precision floating point number value from INI file, returning
+	  // default_value if not found or not a valid floating point value
+	  // according to strtof().
+	  float GetFloat(std::string section, std::string name, float default_value) const;
+  
     // Get a boolean value from INI file, returning default_value if not found or if
     // not a valid true/false value. Valid true values are "true", "yes", "on", "1",
     // and valid false values are "false", "no", "off", "0" (not case sensitive).
@@ -410,6 +415,15 @@ inline double INIReader::GetReal(std::string section, std::string name, double d
     char* end;
     double n = strtod(value, &end);
     return end > value ? n : default_value;
+}
+
+inline float INIReader::GetFloat(std::string section, std::string name, float default_value) const
+{
+	std::string valstr = Get(section, name, "");
+	const char* value = valstr.c_str();
+	char* end;
+	float n = strtof(value, &end);
+	return end > value ? n : default_value;
 }
 
 inline bool INIReader::GetBoolean(std::string section, std::string name, bool default_value) const
