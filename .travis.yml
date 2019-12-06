@@ -1,6 +1,48 @@
 language: c
 sudo: false
+matrix:
+  include:
+    - os: linux
+      compiler: g++-5
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+    - os: linux
+      compiler: g++-6
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+    - os: linux
+      compiler: g++-7
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+    - os: linux
+      compiler: g++-8
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+    - os: linux
+      compiler: g++-9
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-9
 install:
-  - g++ INIReaderTest.cpp -o INIReaderTest.out 
+  - ${TRAVIS_COMPILER} -O2 -Wall INIReaderTest.cpp -o INIReaderTest.out
 script:
   - ./INIReaderTest.out
