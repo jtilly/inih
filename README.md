@@ -21,12 +21,16 @@ int main() {
         std::cout << "Can't load 'test.ini'\n";
         return 1;
     }
-    std::cout << "Config loaded from 'test.ini': version="
-              << reader.GetInteger("protocol", "version", -1) << ", name="
-              << reader.Get("user", "name", "UNKNOWN") << ", email="
-              << reader.Get("user", "email", "UNKNOWN") << ", pi="
-              << reader.GetReal("user", "pi", -1) << ", active="
-              << reader.GetBoolean("user", "active", true) << "\n";
+    std::cout << "Config loaded from 'test.ini':\n"
+              << "version=" << reader.GetInteger("protocol", "version", -1)  << "\n"
+              << "name=" << reader.Get("user", "name", "UNKNOWN")  << "\n"
+              << "email=" << reader.Get("user", "email", "UNKNOWN")  << "\n"
+              << "multi=" << reader.Get("user", "multi", "UNKNOWN")  << "\n"
+              << "pi=" << reader.GetReal("user", "pi", -1)  << "\n"
+              << "active=" << reader.GetBoolean("user", "active", true) << "\n"
+              << "main:global_value=" << reader.Get("main", "global_value", "UNKNOWN") << "\n"
+              << "user:global_value=" << reader.Get("user", "global_value", "UNKNOWN") << "\n"
+              << "user:overwriten_value=" << reader.Get("user", "overwriten_value", "UNKNOWN") << "\n";
     return 0;
 
 }
