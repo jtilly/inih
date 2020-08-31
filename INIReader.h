@@ -395,7 +395,15 @@ inline const std::set<std::string>& INIReader::Sections() const
 inline std::string INIReader::Get(std::string section, std::string name, std::string default_value) const
 {
     std::string key = MakeKey(section, name);
-    return _values.count(key) ? _values.at(key) : default_value;
+    std::string main_key = MakeKey("main", name);
+    std::string value = default_value;
+
+    if (_values.count(key) > 0)
+        value = _values.at(key);
+    else if (_values.count(main_key) > 0)
+        value = _values.at(main_key);
+    
+    return value;
 }
 
 inline long INIReader::GetInteger(std::string section, std::string name, long default_value) const
