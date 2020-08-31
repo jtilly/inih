@@ -41,5 +41,15 @@ To compile and run:
 ```sh
 g++ INIReaderTest.cpp -o INIReaderTest.out
 ./INIReaderTest.out
-# Config loaded from 'test.ini': version=6, name=Bob Smith, email=bob@smith.com, pi=3.14159, active=1
+# Config loaded from 'test.ini':
+# version=6
+# name=Bob Smith
+# email=bob@smith.com
+# multi=this is a
+# multi-line value
+# pi=3.14159
+# active=1
+# main:global_value=I am global
+# user:global_value=I am global
+# user:overwriten_value=New value here!
 ```
