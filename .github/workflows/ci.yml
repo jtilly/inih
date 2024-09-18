@@ -12,7 +12,7 @@ defaults:
 
 jobs:
   pre-commit-checks:
-    name: Pre-commit checks - Python 3.10
+    name: Pre-commit checks
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
@@ -36,4 +36,6 @@ jobs:
       - name: Compile and run
         run: |
           g++ INIReaderTest.cpp -o INIReaderTest.out
+          ./INIReaderTest.out
+          clang++ INIReaderTest.cpp -o INIReaderTest.out
           ./INIReaderTest.out
