@@ -1,0 +1,39 @@
+name: CI
+on: [push]
+
+# Automatically stop old builds on the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -el {0}
+
+jobs:
+  pre-commit-checks:
+    name: Pre-commit checks - Python 3.10
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Run pre-commit-conda
+        uses: quantco/pre-commit-conda@v1
+
+  tests:
+    name: "Tests"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Compile and run
+        run: |
+          g++ INIReaderTest.cpp -o INIReaderTest.out
+          ./INIReaderTest.out
