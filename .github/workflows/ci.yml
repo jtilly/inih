@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        CXX_COMPILER: ["g++", "clang++"]
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -35,7 +37,5 @@ jobs:
           fetch-depth: 0
       - name: Compile and run
         run: |
-          g++ INIReaderTest.cpp -o INIReaderTest.out
-          ./INIReaderTest.out
-          clang++ INIReaderTest.cpp -o INIReaderTest.out
+          ${{ matrix.CXX_COMPILER }} INIReaderTest.cpp -o INIReaderTest.out
           ./INIReaderTest.out
